@@ -1,0 +1,50 @@
+version: '2'
+services:
+  lb:
+    image: m21lab/haproxy:1.6.2
+    links:
+      - letsencrypt
+      - rancher
+    ports:
+      - '80:80'
+      - '443:443'
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    volumes_from: 
+      - letsencrypt
+
+  letsencrypt:
+    image: m21lab/letsencrypt:1.0
+    environment:
+      DOMAINS: 'YOUR_DOMAIN'
+      EMAIL: 'RECOVERYEMAIL@YOUR_DOMAIN'
+      LOAD_BALANCER_SERVICE_NAME: 'lb'
+
+  db:
+    image: m21lab/rancher-mysql:5.7
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=MYSQL-ROOT-PASSWORD
+      - MYSQL_DATABASE=rancher
+      - MYSQL_USER=rancher
+      - MYSQL_PASSWORD=MYSQL-RANCHER-PASSWORD
+    volumes:
+      - ~/rancher-mysql-data:/var/lib/mysql
+  
+  rancher:
+    image: m21lab/rancher:1.3.0
+    links:
+      - db
+    expose:
+      - 8080
+    restart: always
+    environment:
+      CATTLE_DB_CATTLE_MYSQL_HOST: db
+      CATTLE_DB_CATTLE_MYSQL_NAME: rancher
+      CATTLE_DB_CATTLE_USERNAME: rancher
+      CATTLE_DB_CATTLE_PASSWORD: MYSQL-RANCHER-PASSWORD
+      MYSQL_SERVICE_NAME: 'db'
+      VIRTUAL_HOST: 'LETSENCRYPT_DOMAIN_ENV_VAR, https://LETSENCRYPT_DOMAIN_ENV_VAR'
+      #Redirects HTTP => HTTPS
+      FORCE_SSL: "true"
