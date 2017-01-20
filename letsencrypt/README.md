@@ -1,0 +1,1 @@
+article's code is hosted [here: https://github.com/cnadeau/letsencrypt-dockercloud-haproxy](https://github.com/cnadeau/letsencrypt-dockercloud-haproxy)
