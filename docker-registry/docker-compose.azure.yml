@@ -1,0 +1,9 @@
+version: '2'
+services:
+  registry:
+    environment:
+      # To make sure default filesystem storage is deleted from default config
+      REGISTRY_STORAGE: azure
+      REGISTRY_STORAGE_AZURE_ACCOUNTNAME: 'STORAGE-ACCOUNT-NAME'
+      REGISTRY_STORAGE_AZURE_ACCOUNTKEY: 'STORAGE-ACCESS-KEY'
+      REGISTRY_STORAGE_AZURE_CONTAINER: 'CONTAINER-NAME'

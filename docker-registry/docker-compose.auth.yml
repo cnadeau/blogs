@@ -1,0 +1,9 @@
+version: '2'
+services:
+  registry:
+    environment:
+      REGISTRY_AUTH: 'htpasswd'
+      REGISTRY_AUTH_HTPASSWD_REALM: 'YOUR_DOCKER_REGISTRY_REALM'
+      REGISTRY_AUTH_HTPASSWD_PATH: '/httpasswd_storage/htpasswd'
+    volumes:
+      - ~/htpasswd_backup:/httpasswd_storage

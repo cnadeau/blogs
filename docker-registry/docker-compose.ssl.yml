@@ -1,0 +1,29 @@
+version: '2'
+services:
+  haproxy:
+    image: TBD
+    links:
+      - letsencrypt
+    volumes_from:
+      - letsencrypt
+
+  letsencrypt:
+    image: TBD
+    environment:
+      DOMAINS: 'YOUR_DOMAIN'
+      EMAIL: 'RECOVERYEMAIL@YOUR_DOMAIN'
+      OPTIONS: '--staging'
+
+  registry:
+    volumes_from:
+      - letsencrypt:ro
+    environment:
+      REGISTRY_HTTP_SECRET: "your-http-secret"
+      REGISTRY_HTTP_TLS_CERTIFICATE: /etc/letsencrypt/live/LETSENCRYPT_DOMAIN_ENV_VAR/fullchain.pem
+      REGISTRY_HTTP_TLS_KEY: /etc/letsencrypt/live/LETSENCRYPT_DOMAIN_ENV_VAR/privkey.pem
+
+  registry-ui:
+    environment:
+      FORCE_SSL: 'true'
+      ENV_REGISTRY_PROXY_FQDN: 'LETSENCRYPT_DOMAIN_ENV_VAR'
+      ENV_DOCKER_REGISTRY_USE_SSL: 1
