@@ -1,14 +1,14 @@
 version: '2'
 services:
   haproxy:
-    image: TBD
+    image: m21lab/haproxy:1.6.2
     links:
       - letsencrypt
     volumes_from:
       - letsencrypt
 
   letsencrypt:
-    image: TBD
+    image: m21lab/letsencrypt:1.0
     environment:
       DOMAINS: 'YOUR_DOMAIN'
       EMAIL: 'RECOVERYEMAIL@YOUR_DOMAIN'
