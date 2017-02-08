@@ -1,0 +1,12 @@
+{
+  "intents": [{
+      "intent": "CalcIntent",
+      "slots": [{
+        "name": "left",
+        "type": "AMAZON.NUMBER"
+      }, {
+        "name": "right",
+        "type": "AMAZON.NUMBER"
+      }]
+    }
+  }
