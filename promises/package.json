@@ -6,6 +6,7 @@
   "scripts": {
     "startCallbacks": "node runCallbacks",
     "startPromises": "node runPromises",
+    "startSandbox": "node ./promises-sandbox",
     "test": "mocha --recursive *.spec.js"
   },
   "devDependencies": {
