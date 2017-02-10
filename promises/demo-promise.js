@@ -13,9 +13,7 @@ function processResult(result, succeeds = true) {
 
 function demo({ loginSucceeds = true, fetchSucceeds = true, processResultSucceeds = true } = {}) {
   login(loginSucceeds)
-    .catch(e => {
-      return Promise.reject(e);
-    })
+    .catch(e => Promise.reject(e))
     .then(() => fetchData(fetchSucceeds))
     .then(result => processResult(result, processResultSucceeds))
     .then(finalResult => console.log(finalResult))

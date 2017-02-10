@@ -1,3 +1,5 @@
+// Outputs it is currently within a then, and allows to throw
+// a new error easily right after
 function handleThen(id) {
   console.log(`then ${id}`);
 
@@ -11,6 +13,8 @@ function handleThen(id) {
   };
 }
 
+// Outputs it is currently within a catch, and allows to throw
+// a new error easily right after
 function handleCatch(id, error) {
   console.log(`catch ${id} : ${error}`);
 

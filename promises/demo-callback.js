@@ -31,9 +31,9 @@ function fullFlow({ loginSucceeds = true, fetchSucceeds = true, processResultSuc
         }
 
         return cb(null, r);
-      });
-    });
-  });
+      }, processResultSucceeds);
+    }, fetchSucceeds);
+  }, loginSucceeds);
 }
 
 function demo({ loginSucceeds = true, fetchSucceeds = true, processResultSucceeds = true } = {}) {
